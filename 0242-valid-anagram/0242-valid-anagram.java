@@ -17,8 +17,7 @@ class Solution {
 
         Map<Character, Integer> map_s = getmap(s);
         Map<Character, Integer> map_t = getmap(t);
-        // System.out.println(map_s.get('a'));
-        // System.out.println(map_t.get('a'));
+
         return map_s.entrySet().stream().allMatch(e -> e.getValue().equals(map_t.get(e.getKey())));
     }
 }
