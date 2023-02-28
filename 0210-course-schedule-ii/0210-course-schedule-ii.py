@@ -6,21 +6,19 @@ class Solution:
         for x, y in prerequisites:
             preq[x].append(y)
             
-        # print(preq)
         def dfs(crs):
             if crs in cycle:
                 return False
+            
             if crs in seen:
                 return
-            
             cycle.add(crs)
             for c in preq[crs]:
                 if dfs(c) == False:
                     return False
-                
-            cycle.remove(crs)                
+            cycle.remove(crs)    
+            seen.add(crs)            
             res.append(crs)
-            seen.add(crs)
             
         for x in range(numCourses):
             if dfs(x) == False:
