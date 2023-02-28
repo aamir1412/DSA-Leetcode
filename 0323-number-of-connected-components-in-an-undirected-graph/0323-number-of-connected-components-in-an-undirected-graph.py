@@ -1,25 +1,31 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        count = [0]
-        adj = {i:[] for i in range(n)}
-        for x, y in edges:
-            adj[x].append(y)
-            adj[y].append(x)        
+        par = [i for i in range((n+1))]
+        rank = [1] * (n + 1)
         
-        seen = set()
-        def dfs(v):
-            if v in seen:
-                return            
-            seen.add(v)
-            for x in adj[v]:                
-                dfs(x)
+        def find(p):
+            p = par[p]
+            while p != par[p]:
+                p = par[p]
+            return p
+        
+        def union(n1, n2):
+            p1, p2 = find(n1), find(n2)
             
-        for i in range(n):
-            if i in seen:
-                continue
-            dfs(i)
-            count[0] += 1
-                
-        return count[0]
+            if p1 == p2:
+                return
+            
+            if rank[p1] > rank[p2]:
+                par[p2] = p1
+                rank[p1] += rank[p2]
+            else:
+                par[p1] = p2
+                rank[p2] += rank[p1]
+            return True
+        
+        for x, y in edges:
+            if union(x, y):
+                n -= 1
+        return n
             
         
