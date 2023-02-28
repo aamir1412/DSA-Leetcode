@@ -1,26 +1,27 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        preq = {i:[] for i in range(numCourses)}
+        preq = {c:[] for c in range(numCourses)}
         for x, y in prerequisites:
-            preq[x].append(y)        
-        seen = set()
-        
+            preq[x].append(y)
+            
+        cycle = set()
         def dfs(crs):
-            if crs in seen:
+            if crs in cycle:
                 return False
             
             if preq[crs] == []:
                 return True
             
-            seen.add(crs)
+            cycle.add(crs)
             for c in preq[crs]:
                 if dfs(c) == False:
                     return False
-            seen.remove(crs)
+            
+            cycle.remove(crs)
             preq[crs] = []
             return True
         
-        for i in range(numCourses):
-            if dfs(i) == False:
+        for c in range(numCourses):
+            if dfs(c) == False:
                 return False
         return True
