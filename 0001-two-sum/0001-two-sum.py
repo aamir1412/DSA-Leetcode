@@ -1,14 +1,9 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        hmap = {}
-        res = []
+        d = 0
+        dct = {}
         for i in range(len(nums)):
-            dif = target - nums[i]
-            if dif in hmap:
-                res.append(i)
-                res.append(hmap[dif])
-                return res
-            else:                
-                hmap[nums[i]] = i     
-         
-                
+            d = target - nums[i]
+            if d in dct:
+                return [i, dct[d]]
+            dct[nums[i]] = i
