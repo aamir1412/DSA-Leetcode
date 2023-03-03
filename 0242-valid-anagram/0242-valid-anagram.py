@@ -1,11 +1,10 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
-            return        
-        
-        scount, tcount = {}, {}
+            return False
+        sd, td = {}, {}
         for i in range(len(s)):
-            scount[s[i]] = 1 + scount.get(s[i],0)
-            tcount[t[i]] = 1 + tcount.get(t[i],0)
-            
-        return scount == tcount
+            sd[s[i]] = sd.get(s[i], 0) + 1
+            td[t[i]] = td.get(t[i], 0) + 1
+        return sd == td   
+        
